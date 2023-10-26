@@ -72,6 +72,8 @@ const http = require('http');
 const socketIo = require('socket.io');
 const cors = require('cors');
 
+const port = process.env.PORT ?? 3000;
+
 const app = express();
 app.use(cors());
 const server = http.createServer(app);
@@ -126,6 +128,6 @@ app.get('/', (req, res) => {
     res.redirect('index.html');
 })
 
-server.listen(3000, () => {
+server.listen(port, () => {
     console.log('El servidor está escuchando en el puerto 3000');
 });
