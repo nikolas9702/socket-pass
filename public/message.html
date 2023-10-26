@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/favicon.png">
+    <title>Mensajes </title>
+</head>
+<body>
+
+<textarea id="message">
+
+</textarea>
+<button id="btn-send">
+    Enviar pop-up
+</button>
+
+</body>
+<script src="https://cdn.socket.io/4.0.0/socket.io.min.js" ></script>
+
+<script>
+    const btn_send = document.querySelector("#btn-send");
+    const message = document.querySelector("#message");
+    const socket = io('http://192.168.1.3:3000/');
+
+    console.log("Try connnect");
+
+    // Obtén la información del dispositivo
+    const deviceInfo = {
+        appName: navigator.appName,
+        appVersion: navigator.appVersion,
+        platform: navigator.platform,
+        userAgent: navigator.userAgent,
+    };
+
+    socket.on('connect', () => {
+        console.log('Conectado al servidor');
+
+        // Envía la información del dispositivo al servidor
+        socket.emit('deviceInfo', deviceInfo);
+
+        btn_send.addEventListener("click" , () => {
+            socket.emit('messageSend', message.value);
+        })
+
+    });
+
+    socket.on('disconnect', () => {
+        console.log('Desconectado del servidor');
+    });
+
+
+</script>
+</html>
