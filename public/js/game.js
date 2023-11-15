@@ -55,13 +55,14 @@ function Draw () {
 }
 
 function DrawFigure () {
+
+    Collision();
     draver.fillStyle = "yellow";
     figure.forEach( ( values , x  ) => {
         values.forEach( (  value , y) => {
             draver.fillRect((x+figurePosition.x)*SIZE,(y+figurePosition.y)*SIZE,SIZE,SIZE)
         })
     })
-    Collision();
 }
 
 function Collision() {
